@@ -7,23 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		681BB4F02A8BC8A100986639 /* SampleData+Animal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681BB4EF2A8BC8A100986639 /* SampleData+Animal.swift */; };
+		681BB4F02A8BC8A100986639 /* SampleData+Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681BB4EF2A8BC8A100986639 /* SampleData+Recipe.swift */; };
 		682FDAAE2A8D0BDE00B53876 /* ModelContainerPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682FDAAD2A8D0BDE00B53876 /* ModelContainerPreview.swift */; };
 		682FDAB32A8D3BB900B53876 /* Preview+ModelContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682FDAB22A8D3BB900B53876 /* Preview+ModelContainer.swift */; };
 		68BB546A2A701B4E008EC4A5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68BB54692A701B4E008EC4A5 /* Assets.xcassets */; };
 		68BB546D2A701B4E008EC4A5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68BB546C2A701B4E008EC4A5 /* Preview Assets.xcassets */; };
-		68C7212C2A72FF8400D129C5 /* SampleData+AnimalCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C7212B2A72FF8400D129C5 /* SampleData+AnimalCategory.swift */; };
+		68C7212C2A72FF8400D129C5 /* SampleData+RecipeCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C7212B2A72FF8400D129C5 /* SampleData+RecipeCategory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		681BB4EF2A8BC8A100986639 /* SampleData+Animal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SampleData+Animal.swift"; sourceTree = "<group>"; };
+		681BB4EF2A8BC8A100986639 /* SampleData+Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SampleData+Recipe.swift"; sourceTree = "<group>"; };
 		682FDAAD2A8D0BDE00B53876 /* ModelContainerPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelContainerPreview.swift; sourceTree = "<group>"; };
 		682FDAB22A8D3BB900B53876 /* Preview+ModelContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Preview+ModelContainer.swift"; sourceTree = "<group>"; };
 		68BB54622A701B4B008EC4A5 /* Nathan's Recipes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Nathan's Recipes.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		68BB54692A701B4E008EC4A5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		68BB546C2A701B4E008EC4A5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		68BB54732A701B86008EC4A5 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		68C7212B2A72FF8400D129C5 /* SampleData+AnimalCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SampleData+AnimalCategory.swift"; sourceTree = "<group>"; };
+		68C7212B2A72FF8400D129C5 /* SampleData+RecipeCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SampleData+RecipeCategory.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -46,8 +46,8 @@
 		681BB4EC2A8BC35000986639 /* SampleData */ = {
 			isa = PBXGroup;
 			children = (
-				68C7212B2A72FF8400D129C5 /* SampleData+AnimalCategory.swift */,
-				681BB4EF2A8BC8A100986639 /* SampleData+Animal.swift */,
+				68C7212B2A72FF8400D129C5 /* SampleData+RecipeCategory.swift */,
+				681BB4EF2A8BC8A100986639 /* SampleData+Recipe.swift */,
 			);
 			path = SampleData;
 			sourceTree = "<group>";
@@ -176,9 +176,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				681BB4F02A8BC8A100986639 /* SampleData+Animal.swift in Sources */,
+				681BB4F02A8BC8A100986639 /* SampleData+Recipe.swift in Sources */,
 				682FDAAE2A8D0BDE00B53876 /* ModelContainerPreview.swift in Sources */,
-				68C7212C2A72FF8400D129C5 /* SampleData+AnimalCategory.swift in Sources */,
+				68C7212C2A72FF8400D129C5 /* SampleData+RecipeCategory.swift in Sources */,
 				682FDAB32A8D3BB900B53876 /* Preview+ModelContainer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

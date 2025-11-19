@@ -1,9 +1,9 @@
-/*
-See the LICENSE.txt file for this sample’s licensing information.
-
-Abstract:
-A view that displays a data entry form for editing information about an recipe.
-*/
+//
+// RecipeEditor.swift
+// Felix Nathan Project 2
+//
+// Created by Nathan Felix on 11/13/25
+// 
 
 import SwiftUI
 import SwiftData
@@ -16,7 +16,7 @@ struct RecipeEditor: View {
     }
     
     @State private var name = ""
-    @State private var selectedDiet = Recipe.Diet.herbivorous
+    @State private var selectedDiet = Recipe.Diet.breakfast
     @State private var selectedCategory: Category?
     
     @Environment(\.dismiss) private var dismiss
@@ -82,7 +82,7 @@ struct RecipeEditor: View {
             recipe.diet = selectedDiet
             recipe.category = selectedCategory
         } else {
-            // Add an recipe.
+            // Add a recipe.
             let newRecipe = Recipe(name: name, diet: selectedDiet)
             newRecipe.category = selectedCategory
             modelContext.insert(newRecipe)

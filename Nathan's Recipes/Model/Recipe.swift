@@ -1,9 +1,9 @@
-/*
-See the LICENSE.txt file for this sample’s licensing information.
-
-Abstract:
-A model class that defines the properties of an recipe.
-*/
+//
+// Recipe.swift
+// Felix Nathan Project 2
+//
+// Created by Nathan Felix on 11/13/25
+// 
 
 import Foundation
 import SwiftData
@@ -22,8 +22,10 @@ final class Recipe {
 
 extension Recipe {
     enum Diet: String, CaseIterable, Codable {
-        case herbivorous = "Herbivore"
-        case carnivorous = "Carnivore"
-        case omnivorous = "Omnivore"
+        case breakfast = "Breakfast"
+        case lunch = "Lunch"
+        case dinner = "Dinner"
+        case dessert = "Dessert"
+        case snack = "Snack"
     }
 }

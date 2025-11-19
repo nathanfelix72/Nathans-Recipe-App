@@ -1,9 +1,9 @@
-/*
-See the LICENSE.txt file for this sample’s licensing information.
-
-Abstract:
-A view that shows a three-column split view.
-*/
+//
+// ContentView.swift
+// Felix Nathan Project 2
+//
+// Created by Nathan Felix on 11/13/25
+// 
 
 import SwiftUI
 import SwiftData

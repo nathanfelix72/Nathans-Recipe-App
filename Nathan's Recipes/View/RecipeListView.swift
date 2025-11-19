@@ -1,9 +1,9 @@
-/*
-See the LICENSE.txt file for this sample’s licensing information.
-
-Abstract:
-A view that displays a list of recipies.
-*/
+//
+// RecipeListView.swift
+// Felix Nathan Project 2
+//
+// Created by Nathan Felix on 11/13/25
+// 
 
 import SwiftUI
 import SwiftData
@@ -49,7 +49,7 @@ private struct RecipeList: View {
         .overlay {
             if recipes.isEmpty {
                 ContentUnavailableView {
-                    Label("No recipies in this category", systemImage: "pawprint")
+                    Label("No recipes in this category", systemImage: "fork.knife")
                 } description: {
                     AddRecipeButton(isActive: $isEditorPresented)
                 }
@@ -64,7 +64,7 @@ private struct RecipeList: View {
     
     private func removeRecipes(at indexSet: IndexSet) {
         for index in indexSet {
-            let recipeToDelete = recipies[index]
+            let recipeToDelete = recipes[index]
             if navigationContext.selectedRecipe?.persistentModelID == recipeToDelete.persistentModelID {
                 navigationContext.selectedRecipe = nil
             }
@@ -80,8 +80,8 @@ private struct AddRecipeButton: View {
         Button {
             isActive = true
         } label: {
-            Label("Add an recipe", systemImage: "plus")
-                .help("Add an recipe")
+            Label("Add a recipe", systemImage: "plus")
+                .help("Add a recipe")
         }
     }
 }

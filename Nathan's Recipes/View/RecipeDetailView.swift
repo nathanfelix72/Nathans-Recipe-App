@@ -1,9 +1,9 @@
-/*
-See the LICENSE.txt file for this sample’s licensing information.
-
-Abstract:
-A view that displays the details of an recipe.
-*/
+//
+// RecipeDetailView.swift
+// Felix Nathan Project 2
+//
+// Created by Nathan Felix on 11/13/25
+// 
 
 import SwiftUI
 import SwiftData
@@ -39,7 +39,7 @@ struct RecipeDetailView: View {
                     }
                 }
         } else {
-            ContentUnavailableView("Select an recipe", systemImage: "pawprint")
+            ContentUnavailableView("Select a recipe", systemImage: "fork.knife")
         }
     }
     

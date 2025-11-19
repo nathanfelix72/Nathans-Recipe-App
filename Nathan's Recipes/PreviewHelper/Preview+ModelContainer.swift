@@ -1,10 +1,9 @@
-/*
-See the LICENSE.txt file for this sample’s licensing information.
-
-Abstract:
-An extension that creates a sample model container to use when previewing
- views in Xcode.
-*/
+//
+// Preview+ModelContainer.swift
+// Felix Nathan Project 2
+//
+// Created by Nathan Felix on 11/13/25
+// 
 
 import SwiftData
 

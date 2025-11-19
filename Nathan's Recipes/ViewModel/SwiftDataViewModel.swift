@@ -1,9 +1,9 @@
 //
-//  SwiftDataViewModel.swift
-//  Sample SwiftData App
+// SwiftDataViewModel.swift
+// Felix Nathan Project 2
 //
-//  Created by Nathan Felix on 11/13/25.
-//
+// Created by Nathan Felix on 11/13/25
+// 
 
 import SwiftUI
 import SwiftData

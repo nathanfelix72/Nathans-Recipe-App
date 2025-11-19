@@ -10,7 +10,7 @@ import SwiftUI
 @Observable
 class NavigationContext {
     var selectedAnimalCategoryName: String?
-    var selectedAnimal: Animal?
+    var selectedAnimal: Recipe?
     var columnVisibility: NavigationSplitViewVisibility
     
     var sidebarTitle = "Categories"
@@ -24,7 +24,7 @@ class NavigationContext {
     }
     
     init(selectedAnimalCategoryName: String? = nil,
-         selectedAnimal: Animal? = nil,
+         selectedAnimal: Recipe? = nil,
          columnVisibility: NavigationSplitViewVisibility = .automatic) {
         self.selectedAnimalCategoryName = selectedAnimalCategoryName
         self.selectedAnimal = selectedAnimal

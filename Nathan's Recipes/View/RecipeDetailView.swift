@@ -8,8 +8,8 @@ A view that displays the details of an animal.
 import SwiftUI
 import SwiftData
 
-struct AnimalDetailView: View {
-    var animal: Animal?
+struct RecipeDetailView: View {
+    var animal: Recipe?
     @State private var isEditing = false
     @State private var isDeleting = false
     @Environment(\.modelContext) private var modelContext
@@ -43,14 +43,14 @@ struct AnimalDetailView: View {
         }
     }
     
-    private func delete(_ animal: Animal) {
-        navigationContext.selectedAnimal = nil
+    private func delete(_ animal: Recipe) {
+        navigationContext.selectedRecipe = nil
         modelContext.delete(animal)
     }
 }
 
 private struct AnimalDetailContentView: View {
-    let animal: Animal
+    let animal: Recipe
 
     var body: some View {
         VStack {
@@ -78,9 +78,9 @@ private struct AnimalDetailContentView: View {
     }
 }
 
-#Preview {
-    ModelContainerPreview(ModelContainer.sample) {
-        AnimalDetailView(animal: .kangaroo)
-            .environment(NavigationContext())
-    }
-}
+//#Preview {
+//    ModelContainerPreview(ModelContainer.sample) {
+//        RecipeDetailView(animal: .kangaroo)
+//            .environment(NavigationContext())
+//    }
+//}

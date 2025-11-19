@@ -6,28 +6,39 @@ An observable type that manages attributes of the app's navigation system.
 */
 
 import SwiftUI
+import SwiftData
 
 @Observable
-class NavigationContext {
-    var selectedAnimalCategoryName: String?
-    var selectedAnimal: Recipe?
-    var columnVisibility: NavigationSplitViewVisibility
+class NavigationContext: ContextReferencing {
+    private var modelContext: ModelContext
+    
+    var selectedCategoryName: String?
+    var selectedRecipe: Recipe?
+    var columnVisibility: NavigationSplitViewVisibility = .automatic
     
     var sidebarTitle = "Categories"
     
+    required init(modelContext: ModelContext) {
+        self.modelContext = modelContext
+    }
+    
+    func update() {
+        // TODO
+    }
+    
     var contentListTitle: String {
-        if let selectedAnimalCategoryName {
-            selectedAnimalCategoryName
+        if let selectedCategoryName {
+            selectedCategoryName
         } else {
             ""
         }
     }
     
-    init(selectedAnimalCategoryName: String? = nil,
-         selectedAnimal: Recipe? = nil,
-         columnVisibility: NavigationSplitViewVisibility = .automatic) {
-        self.selectedAnimalCategoryName = selectedAnimalCategoryName
-        self.selectedAnimal = selectedAnimal
-        self.columnVisibility = columnVisibility
-    }
+//    init(selectedCategoryName: String? = nil,
+//         selectedRecipe: Recipe? = nil,
+//         columnVisibility: NavigationSplitViewVisibility = .automatic) {
+//        self.selectedCategoryName = selectedCategoryName
+//        self.selectedRecipe = selectedRecipe
+//        self.columnVisibility = columnVisibility
+//    }
 }

@@ -2,86 +2,86 @@
 See the LICENSE.txt file for this sample’s licensing information.
 
 Abstract:
-A view that displays a list of animals.
+A view that displays a list of recipies.
 */
 
 import SwiftUI
 import SwiftData
 
 struct RecipeListView: View {
-    let animalCategoryName: String?
+    let recipeCategoryName: String?
     
     var body: some View {
-        if let animalCategoryName {
-            AnimalList(animalCategoryName: animalCategoryName)
+        if let recipeCategoryName {
+            RecipeList(recipeCategoryName: recipeCategoryName)
         } else {
             ContentUnavailableView("Select a category", systemImage: "sidebar.left")
         }
     }
 }
 
-private struct AnimalList: View {
-    let animalCategoryName: String
+private struct RecipeList: View {
+    let recipeCategoryName: String
     @Environment(NavigationContext.self) private var navigationContext
     @Environment(\.modelContext) private var modelContext
-    @Query(sort: \Recipe.name) private var animals: [Recipe]
+    @Query(sort: \Recipe.name) private var recipes: [Recipe]
     @State private var isEditorPresented = false
 
-    init(animalCategoryName: String) {
-        self.animalCategoryName = animalCategoryName
-        let predicate = #Predicate<Recipe> { animal in
-            animal.category?.name == animalCategoryName
+    init(recipeCategoryName: String) {
+        self.recipeCategoryName = recipeCategoryName
+        let predicate = #Predicate<Recipe> { recipe in
+            recipe.category?.name == recipeCategoryName
         }
-        _animals = Query(filter: predicate, sort: \Recipe.name)
+        _recipes = Query(filter: predicate, sort: \Recipe.name)
     }
     
     var body: some View {
         @Bindable var navigationContext = navigationContext
         List(selection: $navigationContext.selectedRecipe) {
-            ForEach(animals) { animal in
-                NavigationLink(animal.name, value: animal)
+            ForEach(recipes) { recipe in
+                NavigationLink(recipe.name, value: recipe)
             }
-            .onDelete(perform: removeAnimals)
+            .onDelete(perform: removeRecipes)
         }
         .sheet(isPresented: $isEditorPresented) {
-            RecipeEditor(animal: nil)
+            RecipeEditor(recipe: nil)
         }
         .overlay {
-            if animals.isEmpty {
+            if recipes.isEmpty {
                 ContentUnavailableView {
-                    Label("No animals in this category", systemImage: "pawprint")
+                    Label("No recipies in this category", systemImage: "pawprint")
                 } description: {
-                    AddAnimalButton(isActive: $isEditorPresented)
+                    AddRecipeButton(isActive: $isEditorPresented)
                 }
             }
         }
         .toolbar {
             ToolbarItem(placement: .primaryAction) {
-                AddAnimalButton(isActive: $isEditorPresented)
+                AddRecipeButton(isActive: $isEditorPresented)
             }
         }
     }
     
-    private func removeAnimals(at indexSet: IndexSet) {
+    private func removeRecipes(at indexSet: IndexSet) {
         for index in indexSet {
-            let animalToDelete = animals[index]
-            if navigationContext.selectedRecipe?.persistentModelID == animalToDelete.persistentModelID {
+            let recipeToDelete = recipies[index]
+            if navigationContext.selectedRecipe?.persistentModelID == recipeToDelete.persistentModelID {
                 navigationContext.selectedRecipe = nil
             }
-            modelContext.delete(animalToDelete)
+            modelContext.delete(recipeToDelete)
         }
     }
 }
 
-private struct AddAnimalButton: View {
+private struct AddRecipeButton: View {
     @Binding var isActive: Bool
     
     var body: some View {
         Button {
             isActive = true
         } label: {
-            Label("Add an animal", systemImage: "plus")
-                .help("Add an animal")
+            Label("Add an recipe", systemImage: "plus")
+                .help("Add an recipe")
         }
     }
 }
@@ -89,7 +89,7 @@ private struct AddAnimalButton: View {
 //#Preview("RecipeListView") {
 //    ModelContainerPreview(ModelContainer.sample) {
 //        NavigationStack {
-//            RecipeListView(animalCategoryName: Category.mammal.name)
+//            RecipeListView(recipeCategoryName: Category.mammal.name)
 //                .environment(NavigationContext())
 //        }
 //    }
@@ -97,17 +97,17 @@ private struct AddAnimalButton: View {
 //
 //#Preview("No selected category") {
 //    ModelContainerPreview(ModelContainer.sample) {
-//        RecipeListView(animalCategoryName: nil)
+//        RecipeListView(recipeCategoryName: nil)
 //    }
 //}
 //
-//#Preview("No animals") {
+//#Preview("No recipies") {
 //    ModelContainerPreview(ModelContainer.sample) {
-//        AnimalList(animalCategoryName: Category.fish.name)
+//        RecipeList(recipeCategoryName: Category.fish.name)
 //            .environment(NavigationContext())
 //    }
 //}
 //
-//#Preview("AddAnimalButton") {
-//    AddAnimalButton(isActive: .constant(false))
+//#Preview("AddRecipeButton") {
+//    AddRecipeButton(isActive: .constant(false))
 //}

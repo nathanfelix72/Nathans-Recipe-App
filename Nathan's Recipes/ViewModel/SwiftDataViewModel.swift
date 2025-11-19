@@ -2,7 +2,7 @@
 //  SwiftDataViewModel.swift
 //  Sample SwiftData App
 //
-//  Created by Stephen Liddle on 10/30/25.
+//  Created by Nathan Felix on 11/13/25.
 //
 
 import SwiftUI

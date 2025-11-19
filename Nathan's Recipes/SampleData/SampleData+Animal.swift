@@ -2,16 +2,16 @@
 See the LICENSE.txt file for this sample’s licensing information.
 
 Abstract:
-An extension that creates animal instances for use as sample data.
+An extension that creates recipe instances for use as sample data.
 */
 
 import Foundation
 
-extension Animal {
-    static let dog = Animal(name: "Dog", diet: .carnivorous)
-    static let cat = Animal(name: "Cat", diet: .carnivorous)
-    static let kangaroo = Animal(name: "Red kangaroo", diet: .herbivorous)
-    static let gibbon = Animal(name: "Southern gibbon", diet: .herbivorous)
-    static let sparrow = Animal(name: "House sparrow", diet: .omnivorous)
-    static let newt = Animal(name: "Newt", diet: .carnivorous)
+extension Recipe {
+    static let cookies = Recipe(name: "Snickerdoodle", diet: .carnivorous)
+    static let cake = Recipe(name: "Sachertorte", diet: .carnivorous)
+    static let pretzels = Recipe(name: "Bavarian Soft pretzels", diet: .herbivorous)
+    static let gibbon = Recipe(name: "Southern gibbon", diet: .herbivorous)
+    static let sparrow = Recipe(name: "House sparrow", diet: .omnivorous)
+    static let newt = Recipe(name: "Newt", diet: .carnivorous)
 }

@@ -7,12 +7,12 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct RecipeList: View {
     let recipeCategoryName: String
     
     @Environment(RecipeViewModel.self) private var recipeViewModel
-    
     @State private var isEditorPresented = false
     
     // Filter recipes by the selected category
@@ -21,10 +21,8 @@ struct RecipeList: View {
             let hasCategory = recipe.categories.contains { category in
                 category.name == recipeCategoryName
             }
-            print("Recipe: \(recipe.name), Categories: \(recipe.categories.map { $0.name }), Looking for: \(recipeCategoryName), Has it: \(hasCategory)")
             return hasCategory
         }
-        print("Total recipes: \(recipeViewModel.recipes.count), Filtered: \(filtered.count)")
         return filtered
     }
     
@@ -71,4 +69,9 @@ private struct AddRecipeButton: View {
                 .help("Add a recipe")
         }
     }
+}
+
+#Preview {
+    ContentView()
+        .modelContainer(try! ModelContainer.sample())
 }

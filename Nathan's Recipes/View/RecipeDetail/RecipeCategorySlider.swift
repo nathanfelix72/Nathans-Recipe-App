@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct RecipeCategorySlider: View {
     @Environment(RecipeViewModel.self) private var recipeViewModel
@@ -32,4 +33,9 @@ struct RecipeCategorySlider: View {
             .padding(.vertical, 4)
         }
     }
+}
+
+#Preview {
+    ContentView()
+        .modelContainer(try! ModelContainer.sample())
 }

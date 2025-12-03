@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct RecipeDetailContentView: View {
     @Environment(RecipeViewModel.self) private var recipeViewModel
@@ -71,4 +72,9 @@ struct RecipeDetailContentView: View {
         }
         .listStyle(.insetGrouped)
     }
+}
+
+#Preview {
+    ContentView()
+        .modelContainer(try! ModelContainer.sample())
 }

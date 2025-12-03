@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct CategoryList: View {
     var recipeCategories: [Category]
@@ -16,4 +17,9 @@ struct CategoryList: View {
             NavigationLink(recipeCategory.name, value: recipeCategory.name)
         }
     }
+}
+
+#Preview {
+    ContentView()
+        .modelContainer(try! ModelContainer.sample())
 }

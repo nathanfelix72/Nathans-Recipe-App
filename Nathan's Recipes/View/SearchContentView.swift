@@ -16,7 +16,7 @@ struct SearchContentView: View {
         if let searchMode = recipeViewModel.selectedSearchMode {
             switch searchMode {
             case .byCategory:
-                CategorySelectionView()
+                CategoryRecipeListView()
             case .byFavorites:
                 FavoriteRecipesView()
             case .allRecipes:
@@ -28,19 +28,14 @@ struct SearchContentView: View {
     }
 }
 
-struct CategorySelectionView: View {
+struct CategoryRecipeListView: View {
     @Environment(RecipeViewModel.self) private var recipeViewModel
     
     var body: some View {
-        @Bindable var recipeViewModel = recipeViewModel
-        
-        if recipeViewModel.selectedCategoryNames == nil {
-            List(selection: $recipeViewModel.selectedCategoryNames) {
-                CategoryList(recipeCategories: recipeViewModel.recipeCategories)
-            }
-            .navigationTitle("Select Category")
+        if let categoryName = recipeViewModel.selectedCategoryNames {
+            RecipeList(recipeCategoryName: categoryName)
         } else {
-            RecipeList(recipeCategoryName: recipeViewModel.selectedCategoryNames ?? "")
+            ContentUnavailableView("Select a category", systemImage: "folder")
         }
     }
 }

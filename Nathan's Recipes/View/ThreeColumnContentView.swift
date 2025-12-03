@@ -24,12 +24,6 @@ struct ThreeColumnContentView: View {
                 RecipeDetailView()
             }
         }
-        .onChange(of: recipeViewModel.selectedSearchMode) { _, newMode in
-            // Reset category selection when switching search modes
-            if newMode != .byCategory {
-                recipeViewModel.selectedCategoryNames = nil
-            }
-        }
     }
 }
 

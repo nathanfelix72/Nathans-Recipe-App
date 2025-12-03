@@ -16,12 +16,33 @@ struct SearchModeView: View {
     var body: some View {
         @Bindable var recipeViewModel = recipeViewModel
         
-        List(selection: $recipeViewModel.selectedSearchMode) {
-            Section("Choose Search Mode") {
+        List(selection: $recipeViewModel.selectedCategoryNames) {
+            Section("Search Mode") {
                 ForEach(SearchMode.allCases) { mode in
-                    NavigationLink(value: mode) {
-                        Label(mode.rawValue, systemImage: mode.icon)
+                    Button {
+                        recipeViewModel.selectedSearchMode = mode
+                        // Clear category selection when changing modes
+                        if mode != .byCategory {
+                            recipeViewModel.selectedCategoryNames = nil
+                        }
+                    } label: {
+                        HStack {
+                            Label(mode.rawValue, systemImage: mode.icon)
+                            Spacer()
+                            if recipeViewModel.selectedSearchMode == mode {
+                                Image(systemName: "checkmark")
+                                    .foregroundColor(.accentColor)
+                            }
+                        }
                     }
+                    .foregroundColor(.primary)
+                }
+            }
+            
+            // Show categories when in "By Category" mode
+            if recipeViewModel.selectedSearchMode == .byCategory {
+                Section("Categories") {
+                    CategoryList(recipeCategories: recipeViewModel.recipeCategories)
                 }
             }
         }

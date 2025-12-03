@@ -27,10 +27,23 @@ private struct RecipeList: View {
     
     @State private var isEditorPresented = false
     
+    // Filter recipes by the selected category
+    private var filteredRecipes: [Recipe] {
+        let filtered = recipeViewModel.recipes.filter { recipe in
+            let hasCategory = recipe.categories.contains { category in
+                category.name == recipeCategoryName
+            }
+            print("Recipe: \(recipe.name), Categories: \(recipe.categories.map { $0.name }), Looking for: \(recipeCategoryName), Has it: \(hasCategory)")
+            return hasCategory
+        }
+        print("Total recipes: \(recipeViewModel.recipes.count), Filtered: \(filtered.count)")
+        return filtered
+    }
+    
     var body: some View {
         @Bindable var recipeViewModel = recipeViewModel
         List(selection: $recipeViewModel.selectedRecipe) {
-            ForEach(recipeViewModel.recipes) { recipe in
+            ForEach(filteredRecipes) { recipe in
                 NavigationLink(recipe.name, value: recipe)
             }
             .onDelete(perform: removeRecipes)
@@ -39,7 +52,7 @@ private struct RecipeList: View {
             RecipeEditor(recipe: nil)
         }
         .overlay {
-            if recipeViewModel.recipes.isEmpty {
+            if filteredRecipes.isEmpty {
                 ContentUnavailableView {
                     Label("No recipes in this category", systemImage: Default.imageName)
                 } description: {

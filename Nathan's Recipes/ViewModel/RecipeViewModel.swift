@@ -15,7 +15,7 @@ class RecipeViewModel: ContextReferencing {
     
     private var modelContext: ModelContext
     
-    var selectedCategoryName: String?
+    var selectedCategoryNames: String?
     var selectedRecipe: Recipe?
     var columnVisibility: NavigationSplitViewVisibility = .automatic
     
@@ -40,8 +40,8 @@ class RecipeViewModel: ContextReferencing {
     // ...
     
     var contentListTitle: String {
-        if let selectedCategoryName {
-            selectedCategoryName
+        if let selectedCategoryNames {
+            selectedCategoryNames
         } else {
             ""
         }
@@ -53,18 +53,100 @@ class RecipeViewModel: ContextReferencing {
     
     // MARK: - User Intents
     
-    func createRecipe(name: String, category: Category?) {
+    // Simple compatibility convenience: keep existing simple create/update signatures
+    func createRecipe(name: String, categories: [Category]) {
+        createRecipe(
+            name: name,
+            author: "Unknown",
+            date: Date(),
+            minutes: 20,
+            servings: 1,
+            expertiseLevel: "Easy",
+            calories: 100,
+            isFavorite: false,
+            notes: "",
+            ingredients: "",
+            instructions: "",
+            categories: categories
+        )
+    }
+    
+    func updateRecipe(_ recipe: Recipe, name: String, categories: [Category]) {
+        updateRecipe(
+            recipe,
+            name: name,
+            author: recipe.author,
+            date: recipe.date,
+            minutes: recipe.minutes,
+            servings: recipe.servings,
+            expertiseLevel: recipe.expertiseLevel,
+            calories: recipe.calories,
+            isFavorite: recipe.isFavorite,
+            notes: recipe.notes,
+            ingredients: recipe.ingredients,
+            instructions: recipe.instructions,
+            categories: categories
+        )
+    }
+    
+    // Full create/update with all editable fields
+    func createRecipe(
+        name: String,
+        author: String,
+        date: Date,
+        minutes: Int,
+        servings: Int,
+        expertiseLevel: String,
+        calories: Int,
+        isFavorite: Bool,
+        notes: String,
+        ingredients: String,
+        instructions: String,
+        categories: [Category]
+    ) {
         let newRecipe = Recipe(name: name)
-        // Assign the selected category to the recipe's categories array (supporting multiple categories).
-        newRecipe.categories = category.map { [$0] } ?? []
+        newRecipe.author = author
+        newRecipe.date = date
+        newRecipe.minutes = minutes
+        newRecipe.servings = servings
+        newRecipe.expertiseLevel = expertiseLevel
+        newRecipe.calories = calories
+        newRecipe.isFavorite = isFavorite
+        newRecipe.notes = notes
+        newRecipe.ingredients = ingredients
+        newRecipe.instructions = instructions
+        newRecipe.categories = categories
         modelContext.insert(newRecipe)
         update()
     }
     
-    func updateRecipe(_ recipe: Recipe, name: String, category: Category?) {
+    func updateRecipe(
+        _ recipe: Recipe,
+        name: String,
+        author: String,
+        date: Date,
+        minutes: Int,
+        servings: Int,
+        expertiseLevel: String,
+        calories: Int,
+        isFavorite: Bool,
+        notes: String,
+        ingredients: String,
+        instructions: String,
+        categories: [Category]
+    ) {
         recipe.name = name
-        // Replace the recipe's categories with the provided selection (UI currently supports one selection).
-        recipe.categories = category.map { [$0] } ?? []
+        recipe.author = author
+        recipe.date = date
+        recipe.minutes = minutes
+        recipe.servings = servings
+        recipe.expertiseLevel = expertiseLevel
+        recipe.calories = calories
+        recipe.isFavorite = isFavorite
+        recipe.notes = notes
+        recipe.ingredients = ingredients
+        recipe.instructions = instructions
+        recipe.categories = categories
         update()
     }
     
@@ -97,7 +179,7 @@ class RecipeViewModel: ContextReferencing {
     
     func reloadSampleData() {
         selectedRecipe = nil
-        selectedCategoryName = nil
+        selectedCategoryNames = nil
         Category.reloadSampleData(modelContext: modelContext)
         update()
     }

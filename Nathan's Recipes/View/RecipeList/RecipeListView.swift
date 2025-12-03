@@ -12,7 +12,7 @@ struct RecipeListView: View {
     @Environment(RecipeViewModel.self) private var recipeViewModel
     
     var body: some View {
-        if let recipeCategoryName = recipeViewModel.selectedCategoryName {
+        if let recipeCategoryName = recipeViewModel.selectedCategoryNames {
             RecipeList(recipeCategoryName: recipeCategoryName)
         } else {
             ContentUnavailableView("Select a category", systemImage: "sidebar.left")

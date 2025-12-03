@@ -11,7 +11,7 @@ extension Recipe {
     static let snickerdoodles: Recipe = {
         let recipe = Recipe(name: "Snickerdoodles")
         recipe.author = "Grandma Betty"
-        recipe.timeRequired = 25
+        recipe.minutes = 25
         recipe.servings = 24
         recipe.expertiseLevel = "Easy"
         recipe.calories = 120
@@ -24,7 +24,7 @@ extension Recipe {
     static let sachertorte: Recipe = {
         let recipe = Recipe(name: "Sachertorte")
         recipe.author = "Chef Marcel"
-        recipe.timeRequired = 120
+        recipe.minutes = 120
         recipe.servings = 12
         recipe.expertiseLevel = "Hard"
         recipe.calories = 380
@@ -38,7 +38,7 @@ extension Recipe {
     static let pretzels: Recipe = {
         let recipe = Recipe(name: "Bavarian Soft Pretzels")
         recipe.author = "Hans Mueller"
-        recipe.timeRequired = 90
+        recipe.minutes = 90
         recipe.servings = 8
         recipe.expertiseLevel = "Medium"
         recipe.calories = 280
@@ -51,7 +51,7 @@ extension Recipe {
     static let caesarSalad: Recipe = {
         let recipe = Recipe(name: "Caesar Salad")
         recipe.author = "Chef Antonio"
-        recipe.timeRequired = 15
+        recipe.minutes = 15
         recipe.servings = 4
         recipe.expertiseLevel = "Easy"
         recipe.calories = 320
@@ -65,7 +65,7 @@ extension Recipe {
     static let chickenParm: Recipe = {
         let recipe = Recipe(name: "Chicken Parmesan")
         recipe.author = "Nonna Rosa"
-        recipe.timeRequired = 45
+        recipe.minutes = 45
         recipe.servings = 4
         recipe.expertiseLevel = "Medium"
         recipe.calories = 520
@@ -78,7 +78,7 @@ extension Recipe {
     static let pancakes: Recipe = {
         let recipe = Recipe(name: "Buttermilk Pancakes")
         recipe.author = "Mom"
-        recipe.timeRequired = 20
+        recipe.minutes = 20
         recipe.servings = 6
         recipe.expertiseLevel = "Easy"
         recipe.calories = 280

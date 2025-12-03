@@ -7,13 +7,43 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct RecipeListRow: View {
+    let recipe: Recipe
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack(alignment: .leading, spacing: 4) {
+            HStack {
+                Text(recipe.name)
+                    .font(.headline)
+                
+                if recipe.isFavorite {
+                    Image(systemName: "heart.fill")
+                        .font(.caption)
+                        .foregroundStyle(.red)
+                }
+            }
+            
+            HStack {
+                if recipe.minutes > 0 {
+                    Label("\(recipe.minutes) min", systemImage: "clock")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+                
+                if recipe.servings > 0 {
+                    Label("\(recipe.servings) serving(s)", systemImage: "person.2")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+            }
+        }
+        .padding(.vertical, 4)
     }
 }
 
 #Preview {
-    RecipeListRow()
+    ContentView()
+        .modelContainer(try! ModelContainer.sample())
 }

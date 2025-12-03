@@ -29,7 +29,7 @@ struct RecipeDetailContentView: View {
                 HStack {
                     Text("Preparation Time")
                     Spacer()
-                    Text("\(recipe.timeRequired) minutes")
+                    Text("\(recipe.minutes) minutes")
                 }
 
                 HStack {

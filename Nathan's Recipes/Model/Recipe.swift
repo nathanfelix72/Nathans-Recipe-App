@@ -13,10 +13,10 @@ final class Recipe {
     var name: String
     var author: String = "Unknown"
     var date: Date = Date()
-    var timeRequired: Int = 0
+    var minutes: Int = 20
     var servings: Int = 1
     var expertiseLevel: String = "Easy"
-    var calories: Int = 0
+    var calories: Int = 100
     var isFavorite: Bool = false
     var notes: String = "Example Notes"
     var ingredients: String = "Example Ingredients"

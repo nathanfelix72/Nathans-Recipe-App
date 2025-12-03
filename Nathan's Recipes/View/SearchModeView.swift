@@ -18,22 +18,28 @@ struct SearchModeView: View {
         
         List(selection: $recipeViewModel.selectedCategoryNames) {
             Section("Search Mode") {
-                ForEach(SearchMode.allCases) { mode in
+                // By Category - button with checkmark
+                Button {
+                    recipeViewModel.selectedSearchMode = .byCategory
+                } label: {
+                    HStack {
+                        Label(SearchMode.byCategory.rawValue, systemImage: SearchMode.byCategory.icon)
+                        Spacer()
+                        if recipeViewModel.selectedSearchMode == .byCategory {
+                            Image(systemName: "checkmark")
+                                .foregroundColor(.accentColor)
+                        }
+                    }
+                }
+                .foregroundColor(.primary)
+                
+                // Favorites and All Recipes - navigation links
+                ForEach([SearchMode.byFavorites, SearchMode.allRecipes], id: \.self) { mode in
                     Button {
                         recipeViewModel.selectedSearchMode = mode
-                        // Clear category selection when changing modes
-                        if mode != .byCategory {
-                            recipeViewModel.selectedCategoryNames = nil
-                        }
+                        recipeViewModel.selectedCategoryNames = nil
                     } label: {
-                        HStack {
-                            Label(mode.rawValue, systemImage: mode.icon)
-                            Spacer()
-                            if recipeViewModel.selectedSearchMode == mode {
-                                Image(systemName: "checkmark")
-                                    .foregroundColor(.accentColor)
-                            }
-                        }
+                        Label(mode.rawValue, systemImage: mode.icon)
                     }
                     .foregroundColor(.primary)
                 }

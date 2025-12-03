@@ -34,14 +34,12 @@ struct SearchModeView: View {
                 .foregroundColor(.primary)
                 
                 // Favorites and All Recipes - navigation links
-                ForEach([SearchMode.byFavorites, SearchMode.allRecipes], id: \.self) { mode in
-                    Button {
-                        recipeViewModel.selectedSearchMode = mode
-                        recipeViewModel.selectedCategoryNames = nil
-                    } label: {
-                        Label(mode.rawValue, systemImage: mode.icon)
-                    }
-                    .foregroundColor(.primary)
+                NavigationLink(destination: FavoriteRecipesView()) {
+                    Label(SearchMode.byFavorites.rawValue, systemImage: SearchMode.byFavorites.icon)
+                }
+                
+                NavigationLink(destination: AllRecipesView()) {
+                    Label(SearchMode.allRecipes.rawValue, systemImage: SearchMode.allRecipes.icon)
                 }
             }
             

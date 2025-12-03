@@ -14,14 +14,20 @@ struct ThreeColumnContentView: View {
     var body: some View {
         @Bindable var recipeViewModel = recipeViewModel
         NavigationSplitView(columnVisibility: $recipeViewModel.columnVisibility) {
-            RecipeCategoryListView()
+            SearchModeView()
                 .navigationTitle(recipeViewModel.sidebarTitle)
         } content: {
-            RecipeListView()
+            SearchContentView()
                 .navigationTitle(recipeViewModel.contentListTitle)
         } detail: {
             NavigationStack {
                 RecipeDetailView()
+            }
+        }
+        .onChange(of: recipeViewModel.selectedSearchMode) { _, newMode in
+            // Reset category selection when switching search modes
+            if newMode != .byCategory {
+                recipeViewModel.selectedCategoryNames = nil
             }
         }
     }

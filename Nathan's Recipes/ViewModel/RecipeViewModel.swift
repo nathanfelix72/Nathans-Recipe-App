@@ -8,6 +8,22 @@
 import SwiftUI
 import SwiftData
 
+enum SearchMode: String, CaseIterable, Identifiable {
+    case byCategory = "By Category"
+    case byFavorites = "Favorites"
+    case allRecipes = "All Recipes"
+    
+    var id: String { rawValue }
+    
+    var icon: String {
+        switch self {
+        case .byCategory: return "folder.fill"
+        case .byFavorites: return "heart.fill"
+        case .allRecipes: return "list.bullet"
+        }
+    }
+}
+
 @Observable
 class RecipeViewModel: ContextReferencing {
     
@@ -15,16 +31,21 @@ class RecipeViewModel: ContextReferencing {
     
     private var modelContext: ModelContext
     
+    var selectedSearchMode: SearchMode?
     var selectedCategoryNames: String?
     var selectedRecipe: Recipe?
     var columnVisibility: NavigationSplitViewVisibility = .automatic
     
-    var sidebarTitle = "Categories"
+    var sidebarTitle = "Search"
     var searchTitle = "Search"
     
     // Cached data
     var recipeCategories: [Category] = []
     var recipes: [Recipe] = []
+    
+    var favoriteRecipes: [Recipe] {
+        recipes.filter { $0.isFavorite }
+    }
     
     // MARK: - Initialization
     
@@ -41,11 +62,17 @@ class RecipeViewModel: ContextReferencing {
     // ...
     
     var contentListTitle: String {
-        if let selectedCategoryNames {
-            selectedCategoryNames
-        } else {
-            ""
+        if let selectedSearchMode {
+            switch selectedSearchMode {
+            case .byCategory:
+                return selectedCategoryNames ?? "Select a category"
+            case .byFavorites:
+                return "Favorite Recipes"
+            case .allRecipes:
+                return "All Recipes"
+            }
         }
+        return "Select a search mode"
     }
     
     func categoryText(for recipe: Recipe) -> String {

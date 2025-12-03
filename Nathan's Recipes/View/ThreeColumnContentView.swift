@@ -27,9 +27,8 @@ struct ThreeColumnContentView: View {
     }
 }
 
-//#Preview {
-//    ModelContainerPreview(ModelContainer.sample) {
-//        ThreeColumnContentView()
-//            .environment(RecipeViewModel())
-//    }
-//}
+#Preview {
+    ContentView()
+        .modelContainer(try! ModelContainer.sample())
+}
+

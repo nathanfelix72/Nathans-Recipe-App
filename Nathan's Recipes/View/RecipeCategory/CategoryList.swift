@@ -9,11 +9,11 @@
 import SwiftUI
 
 struct CategoryList: View {
+    var recipeCategories: [Category]
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ForEach(recipeCategories) { recipeCategory in
+            NavigationLink(recipeCategory.name, value: recipeCategory.name)
+        }
     }
-}
-
-#Preview {
-    CategoryList()
 }

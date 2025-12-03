@@ -18,9 +18,9 @@ final class Recipe {
     var expertiseLevel: String = "Easy"
     var calories: Int = 0
     var isFavorite: Bool = false
-    var notes: String = ""
-    var ingredients: String = ""
-    var instructions: String = ""
+    var notes: String = "Example Notes"
+    var ingredients: String = "Example Ingredients"
+    var instructions: String = "Example Instructions"
     var categories: [Category] = []
     
     init(name: String) {

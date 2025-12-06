@@ -9,7 +9,6 @@ import SwiftUI
 import SwiftData
 
 enum SearchMode: String, CaseIterable, Identifiable {
-    case byCategory = "By Category"
     case byFavorites = "Favorites"
     case allRecipes = "All Recipes"
     
@@ -17,7 +16,6 @@ enum SearchMode: String, CaseIterable, Identifiable {
     
     var icon: String {
         switch self {
-        case .byCategory: return "folder.fill"
         case .byFavorites: return "heart.fill"
         case .allRecipes: return "list.bullet"
         }
@@ -64,15 +62,13 @@ class RecipeViewModel: ContextReferencing {
     var contentListTitle: String {
         if let selectedSearchMode {
             switch selectedSearchMode {
-            case .byCategory:
-                return selectedCategoryNames ?? "Select a category"
             case .byFavorites:
                 return "Favorite Recipes"
             case .allRecipes:
                 return "All Recipes"
             }
         }
-        return "Select a search mode"
+        return selectedCategoryNames ?? "Recipes"
     }
     
     func categoryText(for recipe: Recipe) -> String {

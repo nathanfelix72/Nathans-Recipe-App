@@ -13,17 +13,10 @@ struct SearchContentView: View {
     @Environment(RecipeViewModel.self) private var recipeViewModel
     
     var body: some View {
-        if let searchMode = recipeViewModel.selectedSearchMode {
-            switch searchMode {
-            case .byCategory:
-                RecipeCategoryListView()
-            case .byFavorites:
-                FavoriteRecipesView()
-            case .allRecipes:
-                AllRecipesView()
-            }
+        if let categoryName = recipeViewModel.selectedCategoryNames {
+            RecipeList(recipeCategoryName: categoryName)
         } else {
-            ContentUnavailableView("Select a search mode", systemImage: "sidebar.left")
+            ContentUnavailableView("Select a category or search option", systemImage: "sidebar.left")
         }
     }
 }

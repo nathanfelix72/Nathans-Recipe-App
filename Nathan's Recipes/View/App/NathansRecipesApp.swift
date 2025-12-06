@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct NathansRecipesApp: App {
+    @SwiftDataViewModel private var recipeViewModel: RecipeViewModel
+    
     var body: some Scene {
         WindowGroup() {
-            ContentView()
+            ThreeColumnContentView()
+                .environment(recipeViewModel)
         }
         .modelContainer(for: Category.self)
     }

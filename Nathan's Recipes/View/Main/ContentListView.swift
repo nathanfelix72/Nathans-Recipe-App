@@ -1,5 +1,5 @@
 //
-//  SearchContentView.swift
+//  ContentListView.swift
 //  Nathan's Recipes
 //
 //  Created by IS 543 on 12/3/25.
@@ -9,7 +9,7 @@
 import SwiftUI
 import SwiftData
 
-struct SearchContentView: View {
+struct ContentListView: View {
     @Environment(RecipeViewModel.self) private var recipeViewModel
     
     var body: some View {
@@ -22,6 +22,6 @@ struct SearchContentView: View {
 }
 
 #Preview {
-    ContentView()
+    ThreeColumnContentView()
         .modelContainer(try! ModelContainer.sample())
 }

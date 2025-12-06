@@ -1,5 +1,5 @@
 //
-//  SearchView.swift
+//  AllRecipesView.swift
 //  Nathan's Recipes
 //
 //  Created by IS 543 on 12/3/25.
@@ -9,12 +9,13 @@
 import SwiftUI
 import SwiftData
 
-struct SearchView: View {
+struct AllRecipesView: View {
     @Environment(RecipeViewModel.self) private var recipeViewModel
     @State private var isEditorPresented = false
     
     var body: some View {
         @Bindable var recipeViewModel = recipeViewModel
+        
         List(selection: $recipeViewModel.selectedRecipe) {
             ForEach(recipeViewModel.recipes) { recipe in
                 NavigationLink(value: recipe) {
@@ -62,6 +63,6 @@ private struct AddRecipeButton: View {
 }
 
 #Preview {
-    ContentView()
+    ThreeColumnContentView()
         .modelContainer(try! ModelContainer.sample())
 }

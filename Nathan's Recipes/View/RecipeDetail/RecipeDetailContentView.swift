@@ -16,7 +16,7 @@ struct RecipeDetailContentView: View {
     var body: some View {
         List {
             Section("Categories") {
-                RecipeCategorySlider(recipe: recipe)
+                CategorySlider(recipe: recipe)
             }
             
             Section("General") {
@@ -79,6 +79,6 @@ struct RecipeDetailContentView: View {
 }
 
 #Preview {
-    ContentView()
+    ThreeColumnContentView()
         .modelContainer(try! ModelContainer.sample())
 }

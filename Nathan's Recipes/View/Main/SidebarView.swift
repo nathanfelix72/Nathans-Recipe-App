@@ -1,5 +1,5 @@
 //
-//  SearchModeView.swift
+//  SidebarView.swift
 //  Nathan's Recipes
 //
 //  Created by IS 543 on 12/3/25.
@@ -9,7 +9,7 @@
 import SwiftUI
 import SwiftData
 
-struct SearchModeView: View {
+struct SidebarView: View {
     @Environment(RecipeViewModel.self) private var recipeViewModel
     @State private var isReloadPresented = false
 
@@ -54,6 +54,6 @@ struct SearchModeView: View {
 }
 
 #Preview {
-    ContentView()
+    ThreeColumnContentView()
         .modelContainer(try! ModelContainer.sample())
 }

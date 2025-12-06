@@ -20,6 +20,6 @@ struct CategoryList: View {
 }
 
 #Preview {
-    ContentView()
+    ThreeColumnContentView()
         .modelContainer(try! ModelContainer.sample())
 }

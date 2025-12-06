@@ -15,10 +15,10 @@ struct ThreeColumnContentView: View {
         @Bindable var recipeViewModel = recipeViewModel
         
         NavigationSplitView(columnVisibility: $recipeViewModel.columnVisibility) {
-            SearchModeView()
+            SidebarView()
                 .navigationTitle(recipeViewModel.sidebarTitle)
         } content: {
-            SearchContentView()
+            ContentListView()
                 .navigationTitle(recipeViewModel.contentListTitle)
         } detail: {
             NavigationStack {
@@ -29,7 +29,7 @@ struct ThreeColumnContentView: View {
 }
 
 #Preview {
-    ContentView()
+    ThreeColumnContentView()
         .modelContainer(try! ModelContainer.sample())
 }
 

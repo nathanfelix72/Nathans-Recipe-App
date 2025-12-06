@@ -1,5 +1,5 @@
 //
-//  RecipeCategorySlider.swift
+//  CategorySlider.swift
 //  Nathan's Recipes
 //
 //  Created by IS 543 on 12/2/25.
@@ -9,7 +9,7 @@
 import SwiftUI
 import SwiftData
 
-struct RecipeCategorySlider: View {
+struct CategorySlider: View {
     @Environment(RecipeViewModel.self) private var recipeViewModel
     let recipe: Recipe
     
@@ -36,6 +36,6 @@ struct RecipeCategorySlider: View {
 }
 
 #Preview {
-    ContentView()
+    ThreeColumnContentView()
         .modelContainer(try! ModelContainer.sample())
 }

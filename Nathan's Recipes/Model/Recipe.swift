@@ -27,3 +27,11 @@ final class Recipe {
         self.name = name
     }
 }
+
+extension Recipe {
+    var asSearchString: String {
+        let result = "\(name) \(ingredients) \(instructions) \(notes)"
+
+        return result.lowercased()
+    }
+}

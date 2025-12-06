@@ -22,7 +22,7 @@ struct SidebarView: View {
                     Label(SearchMode.byFavorites.rawValue, systemImage: SearchMode.byFavorites.icon)
                 }
                 
-                NavigationLink(destination: AllRecipesView()) {
+                NavigationLink(destination: AllRecipesView(searchText: "")) {
                     Label(SearchMode.allRecipes.rawValue, systemImage: SearchMode.allRecipes.icon)
                 }
             }

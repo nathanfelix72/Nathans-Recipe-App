@@ -13,11 +13,13 @@ struct AllRecipesView: View {
     @Environment(RecipeViewModel.self) private var recipeViewModel
     @State private var isEditorPresented = false
     
+    let searchText: String
+    
     var body: some View {
         @Bindable var recipeViewModel = recipeViewModel
         
         List(selection: $recipeViewModel.selectedRecipe) {
-            ForEach(recipeViewModel.recipes) { recipe in
+            ForEach(searchResults) { recipe in
                 NavigationLink(value: recipe) {
                     RecipeListRow(recipe: recipe)
                 }
@@ -29,11 +31,11 @@ struct AllRecipesView: View {
             RecipeEditor(recipe: nil)
         }
         .overlay {
-            if recipeViewModel.recipes.isEmpty {
+            if searchResults.isEmpty {
                 ContentUnavailableView {
-                    Label("No recipes yet", systemImage: Default.imageName)
+                    Label("No recipes", systemImage: Default.imageName)
                 } description: {
-                    AddRecipeButton(isActive: $isEditorPresented)
+                    Text(searchText.isEmpty ? "New recipes you create will appear here." : "No recipes match your search.")
                 }
             }
         }
@@ -45,7 +47,25 @@ struct AllRecipesView: View {
     }
     
     private func removeRecipes(at indexSet: IndexSet) {
-        recipeViewModel.removeRecipes(at: indexSet)
+        // Convert indexSet to indices in the filtered searchResults
+        let recipesToDelete = indexSet.map { searchResults[$0] }
+        
+        // Delete each recipe from the view model
+        for recipe in recipesToDelete {
+            if let index = recipeViewModel.recipes.firstIndex(where: { $0.id == recipe.id }) {
+                recipeViewModel.removeRecipes(at: IndexSet(integer: index))
+            }
+        }
+    }
+    
+    private var searchResults: [Recipe] {
+        if searchText.isEmpty {
+            recipeViewModel.recipes
+        } else {
+            recipeViewModel.recipes.filter { recipe in
+                recipe.asSearchString.contains(searchText.lowercased())
+            }
+        }
     }
 }
 

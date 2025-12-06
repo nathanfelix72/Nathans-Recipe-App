@@ -12,6 +12,7 @@ import SwiftData
 struct AllRecipesView: View {
     @Environment(RecipeViewModel.self) private var recipeViewModel
     @State private var isEditorPresented = false
+    @State private var recipeToEdit: Recipe?
     
     let searchText: String
     
@@ -23,12 +24,51 @@ struct AllRecipesView: View {
                 NavigationLink(value: recipe) {
                     RecipeListRow(recipe: recipe)
                 }
+                .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                    Button(role: .destructive) {
+                        withAnimation {
+                            recipeViewModel.delete(recipe)
+                        }
+                    } label: {
+                        Label("Delete", systemImage: "trash")
+                    }
+                }
+                .swipeActions(edge: .leading, allowsFullSwipe: false) {
+                    Button {
+                        recipeToEdit = recipe
+                        isEditorPresented = true
+                    } label: {
+                        Label("Edit", systemImage: "pencil")
+                    }
+                    .tint(.blue)
+                }
+                .contextMenu {
+                    Button {
+                        recipeToEdit = recipe
+                        isEditorPresented = true
+                    } label: {
+                        Label("Edit", systemImage: "pencil")
+                    }
+                    
+                    Button(role: .destructive) {
+                        withAnimation {
+                            recipeViewModel.delete(recipe)
+                        }
+                    } label: {
+                        Label("Delete", systemImage: "trash")
+                    }
+                }
             }
             .onDelete(perform: removeRecipes)
         }
         .navigationTitle("All Recipes")
         .sheet(isPresented: $isEditorPresented) {
-            RecipeEditor(recipe: nil)
+            RecipeEditor(recipe: recipeToEdit)
+                .onDisappear {
+                    if !isEditorPresented {
+                        recipeToEdit = nil
+                    }
+                }
         }
         .onAppear {
             recipeViewModel.searchText = ""

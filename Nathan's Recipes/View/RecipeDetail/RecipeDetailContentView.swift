@@ -11,12 +11,26 @@ import SwiftData
 
 struct RecipeDetailContentView: View {
     @Environment(RecipeViewModel.self) private var recipeViewModel
+    
+    @State private var isAddCategoryPresented = false
     let recipe: Recipe
 
     var body: some View {
         List {
-            Section("Categories") {
+            Section {
                 CategorySlider(recipe: recipe)
+            } header: {
+                HStack {
+                    Text("Categories")
+                    Spacer()
+                    Button {
+                        isAddCategoryPresented = true
+                    } label: {
+                        Image(systemName: "plus")
+                    }
+                    .buttonStyle(.borderless)
+                    .help("Add new category")
+                }
             }
             
             Section("General") {
@@ -75,6 +89,10 @@ struct RecipeDetailContentView: View {
             }
         }
         .listStyle(.insetGrouped)
+        .sheet(isPresented: $isAddCategoryPresented) {
+            CategoryEditor(category: nil)
+                .presentationDetents([.medium])
+        }
     }
 }
 

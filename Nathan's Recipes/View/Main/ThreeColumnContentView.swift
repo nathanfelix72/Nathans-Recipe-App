@@ -16,10 +16,8 @@ struct ThreeColumnContentView: View {
         
         NavigationSplitView(columnVisibility: $recipeViewModel.columnVisibility) {
             SidebarView()
-                .navigationTitle(recipeViewModel.sidebarTitle)
         } content: {
             ContentListView()
-                .navigationTitle(recipeViewModel.contentListTitle)
         } detail: {
             NavigationStack {
                 RecipeDetailView()

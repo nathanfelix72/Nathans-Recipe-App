@@ -35,9 +35,6 @@ class RecipeViewModel: ContextReferencing {
     var columnVisibility: NavigationSplitViewVisibility = .automatic
     var searchText: String = ""
     
-    var sidebarTitle = "Search"
-    var searchTitle = "Search"
-    
     // Cached data
     var recipeCategories: [Category] = []
     var recipes: [Recipe] = []
@@ -61,7 +58,7 @@ class RecipeViewModel: ContextReferencing {
             return favoriteRecipes
         }
         
-        return recipes.filter { recipe in
+        return favoriteRecipes.filter { recipe in
             recipe.name.localizedCaseInsensitiveContains(searchText) || recipe.author.localizedStandardContains(searchText) || recipe.ingredients.localizedStandardContains(searchText) || recipe.instructions.localizedStandardContains(searchText) || recipe.notes.localizedStandardContains(searchText)
         }
     }
@@ -97,6 +94,31 @@ class RecipeViewModel: ContextReferencing {
     }
     
     // MARK: - User Intents
+    
+    func createCategory(
+        name: String
+    ) {
+        let newCategory = Category(name: name)
+        modelContext.insert(newCategory)
+        update()
+    }
+    
+    func updateCategory(
+        _ category: Category,
+        name: String
+    ) {
+        category.name = name
+        update()
+    }
+    
+    func deleteCategory(_ category: Category) {
+        if selectedCategoryNames == category.name {
+            selectedCategoryNames = nil
+        }
+        
+        modelContext.delete(category)
+        update()
+    }
     
     func createRecipe(name: String, categories: [Category]) {
         createRecipe(

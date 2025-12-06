@@ -12,6 +12,7 @@ import SwiftData
 struct FavoriteRecipesView: View {
     @Environment(RecipeViewModel.self) private var recipeViewModel
     @State private var isEditorPresented = false
+    @State private var recipeToEdit: Recipe?
     
     var body: some View {
         @Bindable var recipeViewModel = recipeViewModel
@@ -21,9 +22,51 @@ struct FavoriteRecipesView: View {
                 NavigationLink(value: recipe) {
                     RecipeListRow(recipe: recipe)
                 }
+                .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                    Button(role: .destructive) {
+                        withAnimation {
+                            recipeViewModel.delete(recipe)
+                        }
+                    } label: {
+                        Label("Delete", systemImage: "trash")
+                    }
+                }
+                .swipeActions(edge: .leading, allowsFullSwipe: false) {
+                    Button {
+                        recipeToEdit = recipe
+                        isEditorPresented = true
+                    } label: {
+                        Label("Edit", systemImage: "pencil")
+                    }
+                    .tint(.blue)
+                }
+                .contextMenu {
+                    Button {
+                        recipeToEdit = recipe
+                        isEditorPresented = true
+                    } label: {
+                        Label("Edit", systemImage: "pencil")
+                    }
+                    
+                    Button(role: .destructive) {
+                        withAnimation {
+                            recipeViewModel.delete(recipe)
+                        }
+                    } label: {
+                        Label("Delete", systemImage: "trash")
+                    }
+                }
             }
         }
         .navigationTitle("Favorite Recipes")
+        .sheet(isPresented: $isEditorPresented) {
+            RecipeEditor(recipe: recipeToEdit)
+                .onDisappear {
+                    if !isEditorPresented {
+                        recipeToEdit = nil
+                    }
+                }
+        }
         .searchable(text: $recipeViewModel.searchText, prompt: "Search")
         .onAppear {
             recipeViewModel.searchText = ""

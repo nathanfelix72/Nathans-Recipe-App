@@ -49,20 +49,11 @@ struct AllRecipesView: View {
     }
 }
 
-private struct AddRecipeButton: View {
-    @Binding var isActive: Bool
-    
-    var body: some View {
-        Button {
-            isActive = true
-        } label: {
-            Label("Add a recipe", systemImage: "plus")
-                .help("Add a recipe")
-        }
-    }
-}
-
 #Preview {
-    ThreeColumnContentView()
-        .modelContainer(try! ModelContainer.sample())
+    let container = try! ModelContainer.sample()
+    let recipeViewModel = RecipeViewModel(modelContext: container.mainContext)
+    
+    return ThreeColumnContentView()
+        .modelContainer(container)
+        .environment(recipeViewModel)
 }

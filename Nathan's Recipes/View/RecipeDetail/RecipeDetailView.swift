@@ -51,6 +51,10 @@ struct RecipeDetailView: View {
 }
 
 #Preview {
-    ThreeColumnContentView()
-        .modelContainer(try! ModelContainer.sample())
+    let container = try! ModelContainer.sample()
+    let recipeViewModel = RecipeViewModel(modelContext: container.mainContext)
+    
+    return ThreeColumnContentView()
+        .modelContainer(container)
+        .environment(recipeViewModel)
 }

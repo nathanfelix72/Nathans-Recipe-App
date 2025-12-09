@@ -1,0 +1,114 @@
+//
+// RecipeList.swift
+// Felix Favorites
+//
+// Created by IS 543 on 12/2/25.
+//
+
+import SwiftUI
+import SwiftData
+
+struct RecipeList: View {
+    let recipeCategoryName: String
+    
+    @Environment(RecipeViewModel.self) private var recipeViewModel
+    @State private var isEditorPresented = false
+    @State private var recipeToEdit: Recipe?
+    
+    // Filter recipes by the selected category
+    private var filteredRecipes: [Recipe] {
+        let filtered = recipeViewModel.filteredRecipes.filter { recipe in
+            let hasCategory = recipe.categories.contains { category in
+                category.name == recipeCategoryName
+            }
+            return hasCategory
+        }
+        return filtered
+    }
+    
+    var body: some View {
+        @Bindable var recipeViewModel = recipeViewModel
+        List(selection: $recipeViewModel.selectedRecipe) {
+            ForEach(filteredRecipes) { recipe in
+                NavigationLink(value: recipe) {
+                    RecipeListRow(recipe: recipe)
+                }
+                .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                    Button(role: .destructive) {
+                        withAnimation {
+                            recipeViewModel.delete(recipe)
+                        }
+                    } label: {
+                        Label("Delete", systemImage: "trash")
+                    }
+                }
+                .swipeActions(edge: .leading, allowsFullSwipe: false) {
+                    Button {
+                        recipeToEdit = recipe
+                        isEditorPresented = true
+                    } label: {
+                        Label("Edit", systemImage: "pencil")
+                    }
+                    .tint(.blue)
+                }
+                .contextMenu {
+                    Button {
+                        recipeToEdit = recipe
+                        isEditorPresented = true
+                    } label: {
+                        Label("Edit", systemImage: "pencil")
+                    }
+                    
+                    Button(role: .destructive) {
+                        withAnimation {
+                            recipeViewModel.delete(recipe)
+                        }
+                    } label: {
+                        Label("Delete", systemImage: "trash")
+                    }
+                }
+            }
+            .onDelete(perform: removeRecipes)
+        }
+        .sheet(isPresented: $isEditorPresented) {
+            RecipeEditor(recipe: recipeToEdit)
+                .onDisappear {
+                    if !isEditorPresented {
+                        recipeToEdit = nil
+                    }
+                }
+        }
+        .onAppear {
+            recipeViewModel.searchText = ""
+        }
+        .overlay {
+            if filteredRecipes.isEmpty {
+                ContentUnavailableView {
+                    Label("No recipes in this category", systemImage: Default.imageName)
+                } description: {
+                    AddRecipeButton(isActive: $isEditorPresented)
+                }
+            }
+        }
+        .toolbar {
+            ToolbarItem(placement: .primaryAction) {
+                AddRecipeButton(isActive: $isEditorPresented)
+            }
+        }
+        .searchable(text: $recipeViewModel.searchText, prompt: "Search")
+        .navigationTitle(recipeCategoryName)
+    }
+    
+    private func removeRecipes(at indexSet: IndexSet) {
+        recipeViewModel.removeRecipes(at: indexSet)
+    }
+}
+
+#Preview {
+    let container = try! ModelContainer.sample()
+    let recipeViewModel = RecipeViewModel(modelContext: container.mainContext)
+    
+    return ThreeColumnContentView()
+        .modelContainer(container)
+        .environment(recipeViewModel)
+}

@@ -3,19 +3,26 @@
 // Felix Nathan Project 2
 //
 // Created by Nathan Felix on 11/13/25
-// 
+//
 
 import SwiftUI
+import SwiftData
 
 @main
 struct NathansRecipesApp: App {
-    @SwiftDataViewModel private var recipeViewModel: RecipeViewModel
-    
     var body: some Scene {
         WindowGroup() {
-            ThreeColumnContentView()
-                .environment(recipeViewModel)
+            ContentWrapperView()
         }
-        .modelContainer(for: Category.self)
+        .modelContainer(for: [Category.self, Recipe.self])
+    }
+}
+
+struct ContentWrapperView: View {
+    @SwiftDataViewModel private var recipeViewModel: RecipeViewModel
+    
+    var body: some View {
+        ThreeColumnContentView()
+            .environment(recipeViewModel)
     }
 }

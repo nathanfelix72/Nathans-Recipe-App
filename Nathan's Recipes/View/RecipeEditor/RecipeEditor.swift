@@ -107,8 +107,7 @@ struct RecipeEditor: View {
                             dismiss()
                         }
                     }
-                    // Require at least a name and one category to save changes.
-                    .disabled(name.isEmpty || selectedCategoryNames.isEmpty)
+                    .disabled(name.isEmpty)
                 }
                 
                 ToolbarItem(placement: .cancellationAction) {

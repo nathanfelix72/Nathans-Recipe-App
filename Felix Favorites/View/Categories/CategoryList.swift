@@ -18,6 +18,7 @@ struct CategoryList: View {
     var body: some View {
         ForEach(recipeCategories) { recipeCategory in
             NavigationLink(recipeCategory.name, value: recipeCategory.name)
+                // AI taught me about swipe actions, I didn't know how to make them earlier
                 .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                     Button(role: .destructive) {
                         withAnimation {
@@ -64,7 +65,14 @@ struct CategoryList: View {
     let container = try! ModelContainer.sample()
     let recipeViewModel = RecipeViewModel(modelContext: container.mainContext)
     
-    return ThreeColumnContentView()
-        .modelContainer(container)
-        .environment(recipeViewModel)
+    let fetchDescriptor = FetchDescriptor<Category>()
+    let categories = try! container.mainContext.fetch(fetchDescriptor)
+    
+    return NavigationStack {
+        List {
+            CategoryList(recipeCategories: categories)
+        }
+    }
+    .modelContainer(container)
+    .environment(recipeViewModel)
 }

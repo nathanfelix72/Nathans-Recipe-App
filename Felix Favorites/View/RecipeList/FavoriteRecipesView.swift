@@ -87,7 +87,9 @@ struct FavoriteRecipesView: View {
     let container = try! ModelContainer.sample()
     let recipeViewModel = RecipeViewModel(modelContext: container.mainContext)
     
-    return ThreeColumnContentView()
-        .modelContainer(container)
-        .environment(recipeViewModel)
+    return NavigationStack {
+        FavoriteRecipesView()
+    }
+    .modelContainer(container)
+    .environment(recipeViewModel)
 }

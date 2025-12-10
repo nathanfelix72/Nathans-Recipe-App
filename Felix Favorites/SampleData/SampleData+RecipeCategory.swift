@@ -8,6 +8,7 @@
 import Foundation
 import SwiftData
 
+// I had AI put all these in after I gave it a big document because I didn't want to type out all the data :)
 extension Category {
     static func insertSampleData(modelContext: ModelContext) {
         // Create new instances of categories
@@ -312,6 +313,7 @@ extension Category {
         meatballs.servings = 6
         meatballs.expertiseLevel = "Medium"
         meatballs.calories = 420
+        meatballs.isFavorite = true
         meatballs.notes = "Sweet and tangy sauce makes these meatballs irresistible"
         meatballs.ingredients = "1 lb hamburger\n⅔ cup oats\n2 eggs\n½ cup chopped onion\n½ cup milk\n1 tsp worcestershire sauce\nPepper\n\nSauce:\n1 cup brown sugar\n½ cup vinegar\n2 tsp mustard\n½ cup barbecue sauce\n2 tsp worcestershire sauce"
         meatballs.instructions = "1. Preheat oven to 350°.\n2. Mix all the meatball ingredients and form into balls. Place in 9x13 pan and cook 20 minutes.\n3. Meanwhile make the sauce by stirring all sauce ingredients together.\n4. Pour sauce over meatballs and cook another 25 minutes."

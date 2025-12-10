@@ -90,10 +90,8 @@ struct AllRecipesView: View {
     }
     
     private func removeRecipes(at indexSet: IndexSet) {
-        // Convert indexSet to indices in the filtered searchResults
         let recipesToDelete = indexSet.map { searchResults[$0] }
         
-        // Delete each recipe from the view model
         for recipe in recipesToDelete {
             if let index = recipeViewModel.recipes.firstIndex(where: { $0.id == recipe.id }) {
                 recipeViewModel.removeRecipes(at: IndexSet(integer: index))
@@ -116,7 +114,9 @@ struct AllRecipesView: View {
     let container = try! ModelContainer.sample()
     let recipeViewModel = RecipeViewModel(modelContext: container.mainContext)
     
-    return ThreeColumnContentView()
-        .modelContainer(container)
-        .environment(recipeViewModel)
+    return NavigationStack {
+        AllRecipesView(searchText: "")
+    }
+    .modelContainer(container)
+    .environment(recipeViewModel)
 }

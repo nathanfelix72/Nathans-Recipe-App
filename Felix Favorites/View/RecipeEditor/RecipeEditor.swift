@@ -16,10 +16,8 @@ struct RecipeEditor: View {
     }
     
     @State private var name = ""
-    // Keep a set of selected category names to support multi-selection.
     @State private var selectedCategoryNames: Set<String> = []
     
-    // New state for all editable fields
     @State private var author = ""
     @State private var date = Date()
     @State private var minutes: Int = 20
@@ -118,7 +116,6 @@ struct RecipeEditor: View {
             }
             .onAppear {
                 if let recipe {
-                    // Edit the incoming recipe.
                     name = recipe.name
                     author = recipe.author
                     date = recipe.date
@@ -132,7 +129,6 @@ struct RecipeEditor: View {
                     instructions = recipe.instructions
                     selectedCategoryNames = Set(recipe.categories.map { $0.name })
                 } else {
-                    // Ensure category list is available for selection when creating.
                     recipeViewModel.ensureSomeDataExists()
                 }
             }
@@ -142,7 +138,6 @@ struct RecipeEditor: View {
     private func save() {
         let selected = recipeViewModel.recipeCategories.filter { selectedCategoryNames.contains($0.name) }
         if let recipe {
-            // Update existing recipe with all fields
             recipeViewModel.updateRecipe(
                 recipe,
                 name: name,
@@ -159,7 +154,6 @@ struct RecipeEditor: View {
                 categories: selected
             )
         } else {
-            // Create new recipe with all fields
             recipeViewModel.createRecipe(
                 name: name,
                 author: author,
@@ -178,11 +172,24 @@ struct RecipeEditor: View {
     }
 }
 
-#Preview {
+#Preview("Add Recipe") {
     let container = try! ModelContainer.sample()
     let recipeViewModel = RecipeViewModel(modelContext: container.mainContext)
     
-    return ThreeColumnContentView()
+    return RecipeEditor(recipe: nil)
+        .modelContainer(container)
+        .environment(recipeViewModel)
+}
+
+#Preview("Edit Recipe") {
+    let container = try! ModelContainer.sample()
+    let recipeViewModel = RecipeViewModel(modelContext: container.mainContext)
+    
+    let fetchDescriptor = FetchDescriptor<Recipe>()
+    let recipes = try! container.mainContext.fetch(fetchDescriptor)
+    let sampleRecipe = recipes.first!
+    
+    return RecipeEditor(recipe: sampleRecipe)
         .modelContainer(container)
         .environment(recipeViewModel)
 }

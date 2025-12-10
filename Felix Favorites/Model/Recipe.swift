@@ -28,6 +28,7 @@ final class Recipe {
     }
 }
 
+// For searching I modelled it after Professor Liddle's search feature
 extension Recipe {
     var asSearchString: String {
         let result = "\(name) \(ingredients) \(instructions) \(notes)"

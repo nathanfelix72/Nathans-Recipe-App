@@ -52,7 +52,11 @@ struct RecipeListRow: View {
     let container = try! ModelContainer.sample()
     let recipeViewModel = RecipeViewModel(modelContext: container.mainContext)
     
-    return ThreeColumnContentView()
+    let fetchDescriptor = FetchDescriptor<Recipe>()
+    let recipes = try! container.mainContext.fetch(fetchDescriptor)
+    let sampleRecipe = recipes.first!
+    
+    return RecipeListRow(recipe: sampleRecipe)
         .modelContainer(container)
         .environment(recipeViewModel)
 }

@@ -54,7 +54,13 @@ struct RecipeDetailView: View {
     let container = try! ModelContainer.sample()
     let recipeViewModel = RecipeViewModel(modelContext: container.mainContext)
     
-    return ThreeColumnContentView()
-        .modelContainer(container)
-        .environment(recipeViewModel)
+    let fetchDescriptor = FetchDescriptor<Recipe>()
+    let recipes = try! container.mainContext.fetch(fetchDescriptor)
+    recipeViewModel.selectedRecipe = recipes.first
+    
+    return NavigationStack {
+        RecipeDetailView()
+    }
+    .modelContainer(container)
+    .environment(recipeViewModel)
 }

@@ -8,6 +8,7 @@
 import SwiftUI
 import SwiftData
 
+// I had AI help me figure this out. It's probably not the best way but having these two structs makes it actually work right on the simulator
 @main
 struct FelixFavoritesApp: App {
     var body: some Scene {

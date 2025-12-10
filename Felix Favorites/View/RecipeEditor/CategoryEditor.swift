@@ -8,6 +8,7 @@
 import SwiftUI
 import SwiftData
 
+// This file was created with the help of AI, it was very similar to the recipe editor so I had it do the gruntwork
 struct CategoryEditor: View {
     let category: Category?
     
@@ -39,7 +40,6 @@ struct CategoryEditor: View {
                             dismiss()
                         }
                     }
-                    // Require at least a name to save changes.
                     .disabled(name.isEmpty)
                 }
                 
@@ -51,7 +51,6 @@ struct CategoryEditor: View {
             }
             .onAppear {
                 if let category {
-                    // Edit the incoming category.
                     name = category.name
                 }
             }
@@ -60,13 +59,11 @@ struct CategoryEditor: View {
     
     private func save() {
         if let category {
-            // Update existing category
             recipeViewModel.updateCategory(
                 category,
                 name: name
             )
         } else {
-            // Create new category
             recipeViewModel.createCategory(
                 name: name
             )
@@ -74,11 +71,25 @@ struct CategoryEditor: View {
     }
 }
 
-#Preview {
+#Preview("Add Category") {
     let container = try! ModelContainer.sample()
     let recipeViewModel = RecipeViewModel(modelContext: container.mainContext)
     
-    return ThreeColumnContentView()
+    return CategoryEditor(category: nil)
+        .modelContainer(container)
+        .environment(recipeViewModel)
+}
+
+#Preview("Edit Category") {
+    let container = try! ModelContainer.sample()
+    let recipeViewModel = RecipeViewModel(modelContext: container.mainContext)
+    
+    // Fetch the first category from the sample data
+    let fetchDescriptor = FetchDescriptor<Category>()
+    let categories = try! container.mainContext.fetch(fetchDescriptor)
+    let sampleCategory = categories.first!
+    
+    return CategoryEditor(category: sampleCategory)
         .modelContainer(container)
         .environment(recipeViewModel)
 }

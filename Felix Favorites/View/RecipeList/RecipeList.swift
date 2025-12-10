@@ -15,7 +15,6 @@ struct RecipeList: View {
     @State private var isEditorPresented = false
     @State private var recipeToEdit: Recipe?
     
-    // Filter recipes by the selected category
     private var filteredRecipes: [Recipe] {
         let filtered = recipeViewModel.filteredRecipes.filter { recipe in
             let hasCategory = recipe.categories.contains { category in
@@ -108,7 +107,13 @@ struct RecipeList: View {
     let container = try! ModelContainer.sample()
     let recipeViewModel = RecipeViewModel(modelContext: container.mainContext)
     
-    return ThreeColumnContentView()
-        .modelContainer(container)
-        .environment(recipeViewModel)
+    let fetchDescriptor = FetchDescriptor<Category>()
+    let categories = try! container.mainContext.fetch(fetchDescriptor)
+    let sampleCategory = categories.first!
+    
+    return NavigationStack {
+        RecipeList(recipeCategoryName: sampleCategory.name)
+    }
+    .modelContainer(container)
+    .environment(recipeViewModel)
 }
